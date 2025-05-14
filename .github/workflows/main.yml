@@ -1,0 +1,31 @@
+name: Obtenir i guardar temperatures diaries
+
+on:
+  schedule:
+    - cron: '59 21 * * *'  # Executa a les 23:59 UTC (23:59 + 2 = 21:59)
+
+jobs:
+  obtenir_i_guardar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Instal·lar dependencies
+        run: pip install requests  # Instalar llibreria requests
+      - name: Executar el programa
+        run: python obtenir_temps.py
+      - name: Pujar fitxer de dades
+        uses: actions/upload-artifact@v2
+        with:
+          name: dades-temperatures
+          path: temp_*.json
+      - name: Commit i Push dels canvis
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Actualitza dades de temperatura diàries" || true # Ignora si no hi ha canvis
+          git push origin main

@@ -1,21 +1,21 @@
 name: Obtenir i guardar temperatures diaries
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Permet executar manualment
   schedule:
-    - cron: '59 21 * * *'  
+    - cron: '59 23 * * *'  # Cada dia a les 23:59
 
 jobs:
   obtenir_i_guardar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configurar Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.9
       - name: Instal·lar dependencies
-        run: pip install requests  # Instalar llibreria requests
+        run: pip install requests
       - name: Executar el programa
         run: python temperatures.py
       - name: Pujar fitxer de dades
@@ -28,5 +28,5 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add .
-          git commit -m "Actualitza dades de temperatura diàries" || true # Ignora si no hi ha canvis
+          git commit -m "Actualitza dades de temperatura diàries" || true
           git push origin main

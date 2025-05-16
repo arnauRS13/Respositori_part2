@@ -16,7 +16,7 @@ jobs:
       - name: Instal·lar dependencies
         run: pip install requests  # Instalar llibreria requests
       - name: Executar el programa
-        run: python obtenir_temps.py
+        run: python temperatures.py
       - name: Pujar fitxer de dades
         uses: actions/upload-artifact@v2
         with:

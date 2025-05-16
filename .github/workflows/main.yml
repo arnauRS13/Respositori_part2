@@ -19,7 +19,7 @@ jobs:
       - name: Executar el programa
         run: python temperatures.py
       - name: Pujar fitxer de dades
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: dades-temperatures
           path: temp_*.json

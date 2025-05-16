@@ -1,6 +1,7 @@
 name: Obtenir i guardar temperatures diaries
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '59 21 * * *'  
 
